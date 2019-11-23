@@ -1,33 +1,30 @@
 "use strict";
 const express = require('express');
-const router = express.Router();
 
+async function detectLabels(imageBuffer) {
+    // Imports the Google Cloud client library
+    const vision = require('@google-cloud/vision');
 
-// async function quickstart() {
-//     // Imports the Google Cloud client library
-//     const vision = require('@google-cloud/vision');
-//
-//     // Creates a client
-//     const client = new vision.ImageAnnotatorClient();
-//     console.log("Reached");
-//     // Performs label detection on the image file
-//     // const [result] = await client.labelDetection('../doggos.jpg');
-//     // const labels = result.labelAnnotations;
-//     // console.log('Labels:');
-//     // labels.forEach(label => console.log(label));
-//
-//     const [result] = await client.faceDetection('../people.jpg');
-//     const faces = result.faceAnnotations;
-//     console.log('Faces:');
-//     faces.forEach((face, i) => {
-//         console.log(`  Face #${i + 1}:`);
-//         console.log(`    Joy: ${face.joyLikelihood}`);
-//         console.log(`    Anger: ${face.angerLikelihood}`);
-//         console.log(`    Sorrow: ${face.sorrowLikelihood}`);
-//         console.log(`    Surprise: ${face.surpriseLikelihood}`);
-//     });
-// }
-// quickstart().catch(console.error);
+    // Creates a client
+    const client = new vision.ImageAnnotatorClient();
+    // Performs label detection on the image file
+    console.log(imageBuffer);
+    const [labelsResult] = await client.labelDetection(imageBuffer);
+    const labels = labelsResult.labelAnnotations;
+    console.log('Labels:');
+    labels.forEach(label => console.log(label));
+
+    const [facesResult] = await client.faceDetection(imageBuffer);
+    const faces = facesResult.faceAnnotations;
+    console.log('Faces:');
+    faces.forEach((face, i) => {
+        console.log(`  Face #${i + 1}:`);
+        console.log(`    Joy: ${face.joyLikelihood}`);
+        console.log(`    Anger: ${face.angerLikelihood}`);
+        console.log(`    Sorrow: ${face.sorrowLikelihood}`);
+        console.log(`    Surprise: ${face.surpriseLikelihood}`);
+    });
+}
 
 async function where(fileName) {
     const request = {
@@ -52,6 +49,8 @@ async function output(){
 //sending the image with post
 exports.process =  function(req, res) {
     console.log('Output!');
-    
+
+    detectLabels(req.file.buffer);
+
     res.send('output');
 };

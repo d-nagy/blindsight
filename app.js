@@ -7,6 +7,7 @@
 var express = require('express')
   , favicon = require('serve-favicon')
   , bodyParser = require('body-parser')
+  , multer = require('multer')
   , errorHandler = require('errorhandler')
   , morgan = require('morgan')
   , routes = require('./routes')
