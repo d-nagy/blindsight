@@ -6,6 +6,8 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "@google-cloud/speech": "^3.4.0",
+    "@google-cloud/text-to-speech": "^2.0.2",
     "@google-cloud/vision": "^1.7.2",
     "body-parser": "*",
     "dotenv": "^8.2.0",
