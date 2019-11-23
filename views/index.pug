@@ -3,5 +3,10 @@ extends layout
 block content
   div.header.gradient
     h1 Blindsight
-  canvas(id='image-canvas')
-  
+
+  video(autoplay)
+  img(src="")
+  canvas(style="display:none;")
+
+block scripts
+  script(src='/js/main.js')
