@@ -8,6 +8,7 @@
   "dependencies": {
     "@google-cloud/vision": "^1.7.2",
     "body-parser": "*",
+    "dotenv": "^8.2.0",
     "errorhandler": "*",
     "express": "*",
     "method-override": "*",
