@@ -1,0 +1,107 @@
+/*
+ *  Styling for the cards widget
+ */
+
+$card-width: 360px !default;
+$card-mini-size: 128px !default;
+$card-border-radius: 4px !default;
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    
+    background-color: #fff;
+}
+
+.card {
+    
+    position: relative;
+    
+    width: $card-width;
+    
+    background-color: #fff;
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+    
+    padding-top: 6px;
+    padding-bottom: 0px;
+    
+    border-radius: $card-border-radius;
+    
+    text-align: center;
+    
+    @include hover-shadow;
+    
+    &>* {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    
+    &>*:last-child {
+        padding-bottom: 6px;
+    }
+}
+
+.card-mini {
+	
+	@extend .card;
+	
+	width: $card-mini-size;
+	height: $card-mini-size;
+	
+	padding: 0;
+}
+
+
+
+/*$card-width: 360px !default;
+$card-border-radius: 4px !default;
+
+.card {
+    
+    position: relative;
+    
+    width: $card-width;
+    
+    background-color: #f0f;
+    
+    margin-top: 10px;   
+    margin-bottom: 10px;
+    
+    padding-top: 6px;
+    padding-bottom: 0px;
+    
+    border-radius: $card-border-radius;
+    
+    text-align: center;
+    
+    &>* {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    
+    &>*:last-child {
+        padding-bottom: 6px;
+    }
+}
+
+.card-image {
+    
+    border-radius: $card-border-radius;
+    
+  max-height: 200px;
+    
+  padding: 0;
+  padding-top: 6px;
+    
+  bottom: 0;
+    
+  object-fit: cover;
+    
+  width: 100%;
+}*/

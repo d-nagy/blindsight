@@ -1,0 +1,110 @@
+/*
+ *  Styling for the <button> tag
+ */
+ 
+$button-color: $primary-color !default;
+$button-empty-color: #FFFFFF !default;
+$button-gradient-color: $primary-gradient-color !default;
+$button-text-color: $primary-text-color !default;
+$button-inverse-text-color: $primary-inverse-text-color !default;
+
+$button-accent-color: $accent-color !default;
+$button-accent-gradient-color: $accent-gradient-color !default;
+$button-accent-text-color: $accent-text-color !default;
+$button-accent-inverse-text-color: $accent-inverse-text-color !default;
+
+$button-text-size: 1em !default;
+
+$button-font-stack: $body-font-stack !default;
+$button-font-weight: $body-thin-font-weight !default;
+
+$button-border-width: 1px !default;
+$button-border-color: $primary-color !default;
+$button-border-radius: 1em !default;
+
+button {
+	
+	position: relative;
+	
+	background: transparent;
+	background-color: $button-empty-color;
+	color: $button-text-color;
+	
+	font-family: $button-font-stack;
+	font-weight: $button-font-weight;
+	font-size: $button-text-size;
+	
+	border: $button-border-width solid $button-border-color;
+	border-radius: $button-border-radius;
+	
+	margin: 0.1em 0.05em 0.1em 0.05em;
+	/*padding: 2px 12px 2px 12px;*/
+	padding: 0.2em 0.8em 0.2em 0.8em;
+	
+	&::after {
+	   position: absolute;
+	   z-index: -1;
+	   
+	   content: '';
+	   
+	   top: 0;
+	   left: 0;
+	   width: 100%;
+	   height: 100%;
+	   
+	   opacity: 1;
+	   
+	   border-radius: $button-border-radius;
+	   
+	   background-color: $button-color;
+	}
+	
+	/*On hover*/
+	&:hover {
+	    background-color: rgba(0,0,0,0);
+        color: $button-inverse-text-color;
+        transition: 0.25s;
+	}
+	
+	/*&.accent {
+        border-color: $button-accent-color;
+        color: $button-accent-text-color;
+    
+        &::after {
+            background-color: $button-accent-color;
+        }
+    
+        &:hover {
+            color: $button-accent-inverse-text-color;
+        }
+        
+        &.gradient::after {
+            @include gradient($button-accent-color, $button-accent-gradient-color);
+        }
+    }
+    
+    &.gradient::after {
+        @include gradient($button-color, $button-gradient-color);
+    }*/
+}
+
+button.accent {
+	border-color: $button-accent-color;
+	color: $button-accent-text-color;
+	
+	&::after {
+	   background-color: $button-accent-color;
+	}
+	
+	&:hover {
+	   color: $button-accent-inverse-text-color;
+	}
+}
+
+button.gradient::after {
+	@include gradient($button-color, $button-gradient-color);
+}
+
+button.accent.gradient::after {
+	@include gradient($button-accent-color, $button-accent-gradient-color);
+}

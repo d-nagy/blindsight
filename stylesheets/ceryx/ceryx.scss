@@ -1,0 +1,19 @@
+//Styling
+@import 'styling/color.scss';
+@import 'styling/font.scss';
+
+//Reset
+@import 'reset/reset.scss';
+
+//Mixins
+@import 'mixins/gradient.scss';
+@import 'mixins/shadow.scss';
+
+//Elements
+@import 'elements/heading.scss';
+@import 'elements/button.scss';
+@import 'elements/input.scss';
+@import 'elements/textarea.scss';
+
+//Widgets
+@import 'widgets/cards.scss';
