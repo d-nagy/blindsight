@@ -4,4 +4,4 @@ Web application that identifies objects and their positions (including facial ex
 
 We are using Google's Vision API for object recognition.
 
-URL: blindsight-durhack2019.appspot.com
+URL: https://blindsight-durhack2019.appspot.com
