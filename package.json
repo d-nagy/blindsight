@@ -6,13 +6,14 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
-    "pug": "*",
+    "@google-cloud/vision": "^1.7.2",
     "body-parser": "*",
     "errorhandler": "*",
+    "express": "*",
     "method-override": "*",
     "morgan": "*",
     "node-sass-middleware": "*",
+    "pug": "*",
     "serve-favicon": "*"
   }
 }

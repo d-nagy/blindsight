@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "blindsight-durhack2019",
+  "private_key_id": "c213b2b996a520f2675e2d248493122e85e3bb7d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCzmtYj37tpLQ6a\nqpECMWUHJr741WqVDqLDuotsWDrUQELb75sfqjg6AUteixxKJa6JTSJMLF+Xzus7\neB78IVoyvKFldT3JegaiFyFYdt05wMCyle6ckwgmRP2Nqtl0rzn8C8COPzF56K5A\nx2l0nuUBsgO9NbGwTXmNrd9pZy/IVSCE6T9ifNYlHL2rjoPBJIg6mnISt5hTcuOe\n3B6HxjwI6xPnXUCtNg2DmCcl2+zskWBkn+ZNo2jsSSU9RiLmhaDeGN+7/6ItWjwC\nPyBhmbOd8gNAD3lD/Dfc8148OC+x1op2JSZqEoK2c0JcaqO9rldp/eOwHVXr7hMl\nuZcon8ZbAgMBAAECggEAA6HKpjOrJgxxT0MwwIMZzTdSEe666fDyukbAKAlwUx3j\nj3AJsO4i/SVM9JUw/Fze6f7jbF5SjPVA84hrBzBwRjaWhI2gGYsJFE3a1xLV4XBn\nVS7MAi8rZIUgcLUQrBfl2JXiQUSM4XxV/cOQ+3jbhH/CX8xBeVSJWnCc/a3GnReQ\nfgexVFYFjPJbq8bm5yrK4NrAB7JqO2py5we8SrbNK0hvg48KbSlWMASelkOkhfN4\n2sDg6euO4ev52FQzDPZIrF2WIqA0beCdEnKRkio7lR3INY2R/BFxGLrOF5oxsmRu\n4eJGziQUw0Z2xj5Lx2LNp0ao8rFqHouVsGfMxmGDmQKBgQDsifXVhpAPRiw9uTJD\nBHQTs+fiE2IRkI3DRmB9YjY5kPc0gogqGSSPppoXz56Fhe3dHeGQK6XCZx9WLdGO\nXhpNl0iH0h+DRPr8uv1z9q1e9M8LuHMVJyUTUWoQ7w5DEm99vtFb6iTmDzSdCEJx\nAXgEQUL+36nWOnV+3ATSmE7/UwKBgQDCYbeFb/SuCT2bfDAeavZpCwxAXb5tlgvL\nUagrNezAN2V5DokZtQxr2Y2AnHzhROnI4z0J9/HKKattm7js7p2UZuMFrm5lAqJS\ny5+zu2nvm3K4JVo5pdis8Yu7SZfG16pVYY0a1Uo2xI/SrqQDC+o/09AKZMn038p5\nXN6/ARsj2QKBgQDhsIS6Vmkv2bGutvypCx/CCN8QS5Q/1CAfGRBJsiKw7IuiM4W+\nPT0wPzM50uSa2/3oA3HMAIlpIsG4lYEkCM+qBtWymh9tPa0I5VWdhtlHB+hhc32C\nylXKx9yfCakfAAEXBrF1tMO+KvX1ewMCFfewf6Bv1XKUMDUZdM65LY/6dwKBgQCV\n1ek3bMN5XBonPqWA7QaglimNfDWMF7tjsMAm/txOluUbWb8JF+xJPlu7JeWFaC+l\n8LReeMfjBBfm18DGsnC5sk2RVZI3Pr6Nf/TNAMx6LKNTm0dfZJ4PQepqJiJe3mOo\niRfR9VPNv9r1ljVLO+YH6WhWerbKka9rudDh/yJCkQKBgQC3BZkwBGVv5xrbWV6d\n73sPALo2+fdwhUBz5YOj2PgbKc8Z2zmLJHX9QalnuWcPNWjiYQ0dy+s5pvt2NhKW\nk/jnavMdP+QkJaD6D8Ztr8k5vNrfl3hHSfcm/TzNtjFlaMKRT7QB3MNoVJbV7W0A\ntYrv3SRoMqvt6jr+j9DmrZAykQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "blindsight-durhack2019@appspot.gserviceaccount.com",
+  "client_id": "113096591370391571043",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/blindsight-durhack2019%40appspot.gserviceaccount.com"
+}
