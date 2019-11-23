@@ -50,12 +50,8 @@ async function output(){
 }
 
 //sending the image with post
-router.post('/process/', function(req, res){
-    console.log(req.body);
-    let image_ID = req.body.ImageID;
-    delete req.body.ImageID;
-    if (req.files !== undefined && req.files.images !== undefined) {
-        req.body.images = {};
-        output()
-    }
-});
+exports.process =  function(req, res) {
+    console.log('Output!');
+    
+    res.send('output');
+};
