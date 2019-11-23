@@ -1,0 +1,89 @@
+$h1-text-color: $primary-color !default;
+$h2-text-color: $accent-color !default;
+$h3-text-color: $primary-color !default;
+$h4-text-color: $accent-color !default;
+$h5-text-color: $primary-color !default;
+$h6-text-color: $accent-color !default;
+
+$h1-gradient-text-color: $primary-gradient-color !default;
+$h2-gradient-text-color: $accent-gradient-color !default;
+$h3-gradient-text-color: $primary-gradient-color !default;
+$h4-gradient-text-color: $accent-gradient-color !default;
+$h5-gradient-text-color: $primary-gradient-color !default;
+$h6-gradient-text-color: $accent-gradient-color !default;
+
+$h1-font-weight: $heading-font-weight !default;
+$h2-font-weight: $heading-font-weight !default;
+
+$h3-font-weight: $heading-thin-font-weight !default;
+$h4-font-weight: $heading-thin-font-weight !default;
+$h5-font-weight: $heading-thin-font-weight !default;
+$h6-font-weight: $heading-thin-font-weight !default;
+
+$h1-font-size: 2em !default;
+$h2-font-size: 1.6em !default;
+$h3-font-size: 1.5em !default;
+$h4-font-size: 1.2em !default;
+$h5-font-size: 1.15em !default;
+$h6-font-size: 1.1em !default;
+
+$h1-bottom-margin: 0.25em !default;
+$h2-bottom-margin: 0.25em !default;
+$h3-bottom-margin: 0.25em !default;
+$h4-bottom-margin: 0.25em !default;
+$h5-bottom-margin: 0.25em !default;
+$h6-bottom-margin: 0.25em !default;
+
+@mixin heading-style($size, $color, $weight, $margin) {
+	font: $weight $size $heading-font-stack;
+	color: $color;
+	margin-bottom: $margin;
+}
+
+h1 {
+    @include heading-style($h1-font-size, $h1-text-color, $h1-font-weight, $h1-bottom-margin);
+}
+
+h1.gradient {
+	@include text-gradient($h1-text-color, $h1-gradient-text-color);
+}
+
+h2 {
+	@include heading-style($h2-font-size, $h2-text-color, $h2-font-weight, $h2-bottom-margin);
+}
+
+h2.gradient {
+    @include text-gradient($h2-text-color, $h2-gradient-text-color);
+}
+
+h3 {
+	@include heading-style($h3-font-size, $h3-text-color, $h3-font-weight, $h3-bottom-margin);
+}
+
+h3.gradient {
+    @include text-gradient($h3-text-color, $h3-gradient-text-color);
+}
+
+h4 {
+	@include heading-style($h4-font-size, $h4-text-color, $h4-font-weight, $h4-bottom-margin);
+}
+
+h4.gradient {
+    @include text-gradient($h4-text-color, $h4-gradient-text-color);
+}
+
+h5 {
+	@include heading-style($h5-font-size, $h5-text-color, $h5-font-weight, $h5-bottom-margin);
+}
+
+h5.gradient {
+    @include text-gradient($h5-text-color, $h5-gradient-text-color);
+}
+
+h6 {
+	@include heading-style($h6-font-size, $h6-text-color, $h6-font-weight, $h6-bottom-margin);
+}
+
+h6.gradient {
+    @include text-gradient($h6-text-color, $h6-gradient-text-color);
+}

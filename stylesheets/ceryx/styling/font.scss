@@ -1,0 +1,18 @@
+/*
+ *  Default fonts for the page
+ *  It is expected that these be changed for each site as needed
+ */
+
+$heading-font-url: 'https://fonts.googleapis.com/css?family=Raleway:300,400' !default;
+$body-font-url: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400' !default;
+
+@import url($heading-font-url);
+@import url($body-font-url);
+
+$heading-font-stack: 'Raleway', sans-serif !default;
+$body-font-stack: 'Open Sans', sans-serif !default;
+
+$heading-font-weight: 400 !default;
+$heading-thin-font-weight: 300 !default;
+$body-font-weight: 400 !default;
+$body-thin-font-weight: 300 !default;

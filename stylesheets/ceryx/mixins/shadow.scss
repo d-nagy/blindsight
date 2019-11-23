@@ -1,0 +1,51 @@
+/*
+ *  Mixins for creating shadows
+ */
+
+@mixin vertical-shadow($distance, $radius) {
+    @include vertical-shadow-color($distance, $radius, rgba(0, 0, 0, 0.25));
+}
+
+@mixin vertical-shadow-color($distance, $radius, $color) {
+    @include drop-shadow(0px, $distance, $radius, $color);
+}
+
+@mixin drop-shadow($horizontal, $vertical, $radius, $color) {
+    -webkit-box-shadow: $horizontal $vertical $radius $color;
+       -moz-box-shadow: $horizontal $vertical $radius $color;
+        -ms-box-shadow: $horizontal $vertical $radius $color;
+            box-shadow: $horizontal $vertical $radius $color;
+}
+
+@mixin hover-shadow {
+    
+    @include vertical-shadow-color(0px, 3px, rgba(0, 0, 0, 0.15));
+    
+    &::after {
+        content: '';
+        position: absolute;
+        
+        z-index: 50;
+        
+        width: 100%;
+        height: 100%; 
+        top: 0;
+        left: 0;
+        
+        opacity: 0;
+        
+        border-radius: inherit;
+        
+        @include vertical-shadow-color(0px, 4px, rgba(0, 0, 0, 0.2));
+        @include transition(opacity 0.1s ease-in-out);
+    }
+    
+    &:hover::after {
+       opacity: 1;
+    }
+}
+
+@mixin transition($tr) {
+    -webkit-transition: $tr;
+    transition: $tr;
+}

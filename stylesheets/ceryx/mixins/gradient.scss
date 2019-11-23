@@ -1,0 +1,29 @@
+/*
+ *  Mixins for creating gradients
+ */
+ 
+@mixin gradient($start, $end) {
+	@include opacity-gradient($start, $end, 1.0);
+}
+
+@mixin opacity-gradient($start, $end, $opacity) {
+    
+    background: $start;
+    background: linear-gradient(to bottom right, rgba($start, $opacity), rgba($end, $opacity));
+}
+
+@mixin border-gradient($start, $end) {
+	border-image: linear-gradient(to bottom right, $start, $end) 100% round;
+}
+
+@mixin text-gradient($start, $end) {
+    
+    background-image: linear-gradient(to bottom right, $start, $end);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+}

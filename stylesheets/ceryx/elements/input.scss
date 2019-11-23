@@ -1,0 +1,135 @@
+/*
+ *  Styling for the <input> tag
+ */
+
+$input-text-color: $primary-text-color !default;
+
+$input-text-size: 1em !default;
+
+$input-font-stack: $body-font-stack !default;
+$input-font-weight: $body-thin-font-weight !default;
+
+$input-border-width: 1px !default;
+$input-border-color: $border-color !default;
+$input-border-radius: 1em !default;
+
+input {
+	color: $input-text-color;
+	border: $input-border-width solid $input-border-color;
+	border-radius: $input-border-radius;
+	
+	font-family: $input-font-stack;
+    font-weight: $input-font-weight;
+    font-size: $input-text-size;
+    
+    padding: 0.05em 0.5em 0.05em 0.5em;
+}
+
+input[type=button], input[type=reset], input[type=submit] {
+    @extend button;
+    
+    &:hover {
+        background-color: $button-color;
+        color: $button-inverse-text-color;
+        transition: 0.25s;
+    }
+    
+    &.accent {
+        border-color: $button-accent-color;
+        color: $button-accent-text-color;
+    
+        &:hover {
+            background-color: $button-accent-color;
+            color: $button-accent-inverse-text-color;
+        }
+    }
+}
+
+/*input[type=button].accent, input[type=reset].accent, input[type=submit].accent {
+    @extend button.accent;
+}
+
+input[type=button].gradient::after, input[type=reset].gradient::after, input[type=submit].gradient::after {
+    @extend button.gradient::after;
+}
+
+input[type=button].accent.gradient::after, input[type=reset].accent.gradient::after, input[type=submit].accent.gradient::after {
+    @extend button.accent.gradient::after;
+}
+*/
+input[type=checkbox] {
+    
+}
+
+input[type=color] {
+    
+}
+
+input[type=date] {
+    
+}
+
+input[type=datetime-local] {
+    
+}
+
+input[type=email] {
+    
+}
+
+input[type=file] {
+    
+}
+
+
+input[type=hidden] {
+    
+}
+
+input[type=image] {
+    
+}
+
+input[type=month] {
+    
+}
+
+input[type=number] {
+    
+}
+
+input[type=password] {
+    
+}
+
+input[type=radio] {
+    
+}
+
+input[type=range] {
+    
+}
+
+input[type=search] {
+    
+}
+
+input[type=tel] {
+    
+}
+
+input[type=text] {
+    
+}
+
+input[type=time] {
+    
+}
+
+input[type=url] {
+    
+}
+
+input[type=week] {
+    
+}

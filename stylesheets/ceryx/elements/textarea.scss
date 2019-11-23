@@ -1,0 +1,32 @@
+/*
+ *  Styling for the <input> tag
+ */
+ 
+$textarea-text-color: $primary-text-color !default;
+
+$textarea-text-size: 1em !default;
+
+$textarea-font-stack: $body-font-stack !default;
+$textarea-font-weight: $body-thin-font-weight !default;
+
+$textarea-border-width: 1px !default;
+$textarea-border-color: $border-color !default;
+$textarea-border-radius: 1em !default;
+
+$textarea-width: 50% !default;
+$textarea-height: 16em !default;
+
+textarea {
+	color: $textarea-text-color;
+    border: $textarea-border-width solid $textarea-border-color;
+    border-radius: $textarea-border-radius;
+    
+    font-family: $textarea-font-stack;
+    font-weight: $textarea-font-weight;
+    font-size: $textarea-text-size;
+    
+    padding: 0.15em 0.5em 0.15em 0.5em;
+    
+    width: $textarea-width;
+    height: $textarea-height;
+}

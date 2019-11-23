@@ -1,0 +1,33 @@
+//Styling
+$primary-color: #3A4890;
+$primary-gradient-color: #3A3890;
+
+@import 'ceryx/ceryx.scss';
+
+html, body {
+    margin: 0;
+    height: 100vh;
+}
+
+h1 {
+    color: #fff;
+}
+
+canvas {
+
+    width: 100%;
+    height: 100%;
+    
+    background-color: #454545;
+}
+
+.header {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    padding: 8px 0 0 0;
+    
+    @include gradient($primary-color, $primary-gradient-color);
+}
