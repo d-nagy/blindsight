@@ -56,37 +56,6 @@ router.post('/process/', function(req, res){
     delete req.body.ImageID;
     if (req.files !== undefined && req.files.images !== undefined) {
         req.body.images = {};
-
-
-
-
-    if (blog_ID !== "undefined") {
-        Blog.findByIdAndUpdate(
-            //Some unique identifier here
-            blog_ID,
-
-            //The data to be set
-            req.body,
-
-            //An option that asks mongoose to return the updated version
-            //of the document instead of the pre-updated one
-            { new: true },
-
-            (err, blog) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                return res.redirect('/admin/blog');
-            }
-        );
-    } else {
-        const newBlog = new Blog(req.body);
-        newBlog.save(err => {
-            if (err) {
-                return res.status(500).send(err);
-            }
-
-            return res.status(200).redirect('/admin/blog');
-        });
+        output()
     }
 });
