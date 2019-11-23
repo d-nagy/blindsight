@@ -6,7 +6,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.2.6",
+    "express": "4.17.1",
     "pug": "*",
     "body-parser": "^1.18.3",
     "errorhandler": "^1.5.0",
