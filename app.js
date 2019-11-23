@@ -6,6 +6,7 @@
 var express = require('express')
   , favicon = require('serve-favicon')
   , bodyParser = require('body-parser')
+  , errorHandler = require('errorhandler')
   , morgan = require('morgan')
   , routes = require('./routes')
   , http = require('http')
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' === app.get('env')) {
-  app.use(express.errorHandler());
+  app.use(errorHandler());
 }
 
 app.get('/', routes.index);
