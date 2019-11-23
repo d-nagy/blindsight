@@ -21,11 +21,26 @@ if (hasGetUserMedia()) {
     video.onclick = function() {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        frame = video;
-        canvas.getContext('2d').drawImage(frame, 0, 0);
+        canvas.getContext('2d').drawImage(video, 0, 0);
         // Other browswers will fall back to image/png
-        img.src = canvas.toDataURL('image/webp');
+        frame = canvas.toDataURL('image/webp');
+        img.src = frame;
+
+        canvas.toBlob(function(blob) {
+            let fd = new FormData();
+            fd.append('image', blob);
+            $.ajax({
+                type: "POST",
+                url: "/process/",
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function(response) {
+                console.log(response);
+            });
+        }, 'image/webp');
     };
+
 } else {
     alert('getUserMedia() is not supported by your browser');
 }
