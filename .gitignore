@@ -223,3 +223,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+## Custom
+
+.jshintrc
+.project
+.sublime-project
