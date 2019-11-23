@@ -3,31 +3,31 @@ const express = require('express');
 const router = express.Router();
 
 
-async function quickstart() {
-    // Imports the Google Cloud client library
-    const vision = require('@google-cloud/vision');
-
-    // Creates a client
-    const client = new vision.ImageAnnotatorClient();
-    console.log("Reached");
-    // Performs label detection on the image file
-    // const [result] = await client.labelDetection('../doggos.jpg');
-    // const labels = result.labelAnnotations;
-    // console.log('Labels:');
-    // labels.forEach(label => console.log(label));
-
-    const [result] = await client.faceDetection('../people.jpg');
-    const faces = result.faceAnnotations;
-    console.log('Faces:');
-    faces.forEach((face, i) => {
-        console.log(`  Face #${i + 1}:`);
-        console.log(`    Joy: ${face.joyLikelihood}`);
-        console.log(`    Anger: ${face.angerLikelihood}`);
-        console.log(`    Sorrow: ${face.sorrowLikelihood}`);
-        console.log(`    Surprise: ${face.surpriseLikelihood}`);
-    });
-}
-quickstart().catch(console.error);
+// async function quickstart() {
+//     // Imports the Google Cloud client library
+//     const vision = require('@google-cloud/vision');
+//
+//     // Creates a client
+//     const client = new vision.ImageAnnotatorClient();
+//     console.log("Reached");
+//     // Performs label detection on the image file
+//     // const [result] = await client.labelDetection('../doggos.jpg');
+//     // const labels = result.labelAnnotations;
+//     // console.log('Labels:');
+//     // labels.forEach(label => console.log(label));
+//
+//     const [result] = await client.faceDetection('../people.jpg');
+//     const faces = result.faceAnnotations;
+//     console.log('Faces:');
+//     faces.forEach((face, i) => {
+//         console.log(`  Face #${i + 1}:`);
+//         console.log(`    Joy: ${face.joyLikelihood}`);
+//         console.log(`    Anger: ${face.angerLikelihood}`);
+//         console.log(`    Sorrow: ${face.sorrowLikelihood}`);
+//         console.log(`    Surprise: ${face.surpriseLikelihood}`);
+//     });
+// }
+// quickstart().catch(console.error);
 
 async function where(fileName) {
     const request = {
