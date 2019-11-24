@@ -34,6 +34,7 @@ if (hasGetUserMedia()) {
         frame = canvas.toDataURL('image/webp');
         img.src = frame;
         dir = window.deviceDirection;
+        $('#dir').text = "Direction: " + dir;
 
         canvas.toBlob(function(blob) {
             let fd = new FormData();
