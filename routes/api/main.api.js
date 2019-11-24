@@ -1,57 +1,50 @@
 "use strict";
 const express = require('express');
+const vis = require("./objRecognition.js");
 
-async function detectLabels(imageBuffer) {
-    // Imports the Google Cloud client library
-    const vision = require('@google-cloud/vision');
+var objects = [];
 
-    // Creates a client
-    const client = new vision.ImageAnnotatorClient();
-    // Performs label detection on the image file
-    const [labelsResult] = await client.labelDetection(imageBuffer);
-    const labels = labelsResult.labelAnnotations;
-    console.log('Labels:');
-    labels.forEach(label => console.log(label));
+function isObj(element){
+	const tol = 5;
+	for (var i=0; i<objects.length; i++){
+		if (objects[i].name == element.name){
+			if (Math.pow(objects[i].rotX - element.rotX, 2) < Math.pow(tol, 2)){
+				if (Math.pow(objects[i].rotY - element.rotY, 2) < Math.pow(tol, 2)){
+					return true;
+				};
+			};
+		};
+	};
+	return false;
+}
 
-    const [facesResult] = await client.faceDetection(imageBuffer);
-    const faces = facesResult.faceAnnotations;
-    console.log('Faces:');
-    faces.forEach((face, i) => {
-        console.log(`  Face #${i + 1}:`);
-        console.log(`    Joy: ${face.joyLikelihood}`);
-        console.log(`    Anger: ${face.angerLikelihood}`);
-        console.log(`    Sorrow: ${face.sorrowLikelihood}`);
-        console.log(`    Surprise: ${face.surpriseLikelihood}`);
+async function addObj(imageBuffer, rot){
+	var out = await vis.findObjects(imageBuffer, rot);
+	out.forEach(o => {
+		if (!isObj(o)){
+			objects.push(o);
+		};
+	});
+}
+
+async function person(imageBuffer){
+	var options = {"joy": "happy", "sorrow": "sad", "anger": "angry", "surprise": "suprised"};
+    var feels = await vis.feelings(imageBuffer);
+
+    let texts = [];
+    feels.forEach((feel, i) => {
+        texts.push(`Person ${i+1} is ${feel.confidence} percent ${options[feel.feeling]}`);
     });
+
+    let text = texts.join('|');
+	console.log(text);
+	return text;
 }
 
-async function where(fileName) {
-    const request = {
-        image: {content: fs.readFileSync(fileName)},
-    };
-    const [result] = await client.objectLocalization(request);
-    const objects = result.localizedObjectAnnotations;
-    objects.forEach(object => {
-        console.log(`Name: ${object.name}`);
-        console.log(`Confidence: ${object.score}`);
-        const vertices = object.boundingPoly.normalizedVertices;
-        vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
-    });
-    return objects;
-}
-
-async function output(){
-    const obj = await where('./dog.png');
-    console.log(obj[0].score);
-}
 
 //sending the image with post
-exports.process =  function(req, res) {
-    console.log('Output!');
-
-    detectLabels(req.file.buffer);
-
-    console.log(req.body);
-
-    res.send('output');
+exports.feelings =  async function(req, res) {
+    let responseText = await person(req.file.buffer);
+    console.log('Post response: ' + responseText);
+    res.send(responseText);
 };
