@@ -107,10 +107,13 @@ if (hasGetUserMedia()) {
         img.src = frame;
         dir = window.deviceDirection;
 
+        console.log(Object.keys(dir));
+
         canvas.toBlob(function(blob) {
             let fd = new FormData();
             fd.append('image', blob);
-            fd.append('rotation', dir);
+            fd.append('rotX', dir.rotX);
+            fd.append('rotY', dir.rotY);
             $.ajax({
                 type: "POST",
                 url: "/objAdd",
