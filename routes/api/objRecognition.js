@@ -33,10 +33,10 @@ async function findObjects(imageBuffer, rot) {
   		centreVert[1] = centreVert[1]/4;
 		const angle = getAngle(centreVert[0], centreVert[1], rot.rotX, rot.rotY);
         out.push({rotX: angle.angX, rotY: angle.angY, name: object.name});
-        console.log('rotX: ' + angle.angX);
-        console.log('rotY: ' + angle.angY);
-        console.log('name: ' + object.name);
-        console.log('\n');
+        //console.log('rotX: ' + angle.angX);
+        //console.log('rotY: ' + angle.angY);
+        //console.log('name: ' + object.name);
+        //console.log('\n');
 	});
 	return out;
 }

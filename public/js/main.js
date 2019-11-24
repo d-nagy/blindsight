@@ -14,7 +14,7 @@ recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
-recognition.start();
+//recognition.start();
 
 // document.body.onclick = function() {
 //   recognition.start();
@@ -65,6 +65,7 @@ if (hasGetUserMedia()) {
         then((stream) => {video.srcObject = stream});
 
     let getFeelings = function() {
+    	clearInterval(sendInterval);
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
@@ -93,6 +94,7 @@ if (hasGetUserMedia()) {
                     utterance.rate = 0.6;
                     synth.speak(utterance);
                 });
+                repeatSend();
             });
         }, 'image/webp');
     };
@@ -140,26 +142,33 @@ if (hasGetUserMedia()) {
         sendInterval = setInterval(sendData, 3000);
     }
 
+    let startRecognition = function() {
+    	recognition.start();
+    	console.log("Recognition started");
+    }
+
     let mouseDown = function() {
         mouseUp();
-        mouseTimer = window.setTimeout(getFeelings, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
+        mouseTimer = window.setTimeout(startRecognition, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
     }
 
     let mouseUp = function() {
+    	recognition.stop();
         if (mouseTimer) window.clearTimeout(mouseTimer);  //cancel timer when mouse button is released
-        if (sendInterval) clearInterval(sendInterval);
     }
 
     recognition.onresult = function(event) {
       var last = event.results.length - 1;
       var word = event.results[last][0].transcript;
+      console.log(1);
       console.log(word);
       askObject(word);
     }
 
     document.body.onmousedown = mouseDown;
     document.body.onmouseup = mouseUp;
-    document.body.ondblclick = repeatSend;
+    document.body.ondblclick = getFeelings;//repeatSend;
+    repeatSend();
 } else {
     alert('getUserMedia() is not supported by your browser');
 }
