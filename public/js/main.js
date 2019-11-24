@@ -1,5 +1,34 @@
 window.deviceDirection = 0;
 
+let synth = window.speechSynthesis;
+
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+var recognition = new SpeechRecognition();
+var speechRecognitionList = new SpeechGrammarList();
+
+recognition.grammars = speechRecognitionList;
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+// document.body.onclick = function() {
+//   recognition.start();
+//   console.log('Ready to receive a color command.');
+// }
+
+// recognition.onresult = function(event) {
+//   var last = event.results.length - 1;
+//   var word = event.results[last][0].transcript;
+//   console.log(word);
+// }
+
+// recognition.onnomatch = function(event) {
+//   console.log('I didnt recognise that color.');
+// }
+
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices &&
         navigator.mediaDevices.getUserMedia);
@@ -33,7 +62,7 @@ if (hasGetUserMedia()) {
     navigator.mediaDevices.getUserMedia(vgaConstraints).
         then((stream) => {video.srcObject = stream});
 
-    let sendData = function() {
+    let sendData = function(url, callback) {
         console.log('Sending data');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -50,12 +79,12 @@ if (hasGetUserMedia()) {
             fd.append('dir', dir);
             $.ajax({
                 type: "POST",
-                url: "/process/",
+                url: "/" + url,
                 data: fd,
                 processData: false,
                 contentType: false
             }).done(function(response) {
-                console.log(response);
+                if (callback) callback(response);
             });
         }, 'image/webp');
     };
@@ -65,9 +94,25 @@ if (hasGetUserMedia()) {
         sendInterval = setInterval(sendData, 3000);
     }
 
+    let detectFaces = function() {
+        sendData('feelings', function(response) {
+            console.log(response);
+            let responses = response.split('|');
+            responses.forEach((res, i) => {
+                let utterance = new SpeechSynthesisUtterance(res);
+                let voice = synth.getVoices().find(v => v.lang == 'en-GB');
+
+                utterance.voice = voice;
+                utterance.pitch = 1.0;
+                utterance.rate = 0.6;
+                synth.speak(utterance);
+            });
+        });
+    }
+
     let mouseDown = function() {
         mouseUp();
-        mouseTimer = window.setTimeout(sendData, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
+        mouseTimer = window.setTimeout(detectFaces, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
     }
 
     let mouseUp = function() {
