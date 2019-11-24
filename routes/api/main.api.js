@@ -96,7 +96,8 @@ async function person(imageBuffer){
 
 exports.objAdd =  async function(req, res) {
     console.log("objAdd hit");
-    await addObj(req.file.buffer, req.body.rot);
+    console.log("keys: " + Object.keys(req.body.rotation));
+    await addObj(req.file.buffer, req.body.rotation);
     res.send('Object added.');
 };
 
