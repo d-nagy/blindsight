@@ -58,4 +58,5 @@ if (hasGetUserMedia()) {
 
 function deviceOrientationHandler(eventData) {
     window.deviceDirection = eventData.alpha;
+    $('#dir').text = "Direction: " + eventData.alpha;
 }
