@@ -14,7 +14,11 @@ if ('DeviceOrientationEvent' in window) {
 if (hasGetUserMedia()) {
     // We're good to go!
     const vgaConstraints = {
-        video: {width: {exact: 640}, height: {exact: 480}}
+        video: {
+            width: {exact: 640},
+            height: {exact: 480},
+            facingMode: "environment"
+        }
     };
 
     let frame;
