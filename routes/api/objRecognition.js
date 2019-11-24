@@ -70,6 +70,10 @@ async function feelings(fileName){
             maxfeeling = probs[face.surpriseLikelihood];
             feel = "surprise";
         };
+        if (maxfeeling == 0) {
+            maxfeeling = 100;
+            feel = "neutral";
+        };
 
         outputs.push({feeling: feel, confidence: maxfeeling});
     });
