@@ -2,6 +2,19 @@ const vision = require('@google-cloud/vision');
 
 const client = new vision.ImageAnnotatorClient();
 
+function getAngle(x, y, rotX, rotY){
+	const angWidth = 60;
+	const angHeight = 60;
+	const xSize = 640;
+	const ySize = 480;
+
+	angFromTop = angHeight * y/ySize;
+	angFromLeft = angWidth * x/ySize;
+	angY = angFromTop + angHeight/2 + rotY;
+	angX = angFromLeft + angWidth/2 + rotX;
+	return	{angX, angY};
+}
+
 async function findObjects(imageBuffer, rot) {
 	console.log(1);
 	// const request = {
@@ -19,7 +32,7 @@ async function findObjects(imageBuffer, rot) {
   		});
   		centreVert[0] = centreVert[0]/4;
   		centreVert[1] = centreVert[1]/4;
-		const angle = get_angle(centreVert[0], centreVert[1], rot.x, rot.y);
+		const angle = getAngle(centreVert[0], centreVert[1], rot.rotX, rot.rotY);
 		out.push({rotX: angle.angX, rotY: angle.angY, name: object.name});
 	});
 	return out;
@@ -63,3 +76,4 @@ async function feelings(fileName){
 
 module.exports.findObjects = findObjects;
 module.exports.feelings = feelings;
+module.exports.getAngle = getAngle;

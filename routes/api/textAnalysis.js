@@ -12,7 +12,7 @@ function segment(strin){
 		} else{
 			words.push(word);
 			var word = "";
-		} 
+		}
 	};
 	words.push(word);
 	return words;

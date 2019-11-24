@@ -107,13 +107,15 @@ if (hasGetUserMedia()) {
         img.src = frame;
         dir = window.deviceDirection;
 
+        console.log(dir.rotX + " " + dir.rotY);
+
         canvas.toBlob(function(blob) {
             let fd = new FormData();
             fd.append('image', blob);
-            fd.append('dir', dir);
+            fd.append('rot', dir);
             $.ajax({
                 type: "POST",
-                url: "/addObj",
+                url: "/objAdd",
                 data: fd,
                 processData: false,
                 contentType: false
@@ -128,7 +130,7 @@ if (hasGetUserMedia()) {
         $.ajax({
                 type: "POST",
                 url: "/objOut",
-                data: {"text": text, "rot": dir},
+                data: {"text": text.toLowerCase(), "rot": dir},
             });
     }
 
@@ -162,7 +164,7 @@ if (hasGetUserMedia()) {
 }
 
 function deviceOrientationHandler(eventData) {
-    window.deviceDirection.rotx = eventData.alpha;
-    window.deviceDirection.roty = eventData.beta;
+    window.deviceDirection.rotX = 0; //eventData.alpha;
+    window.deviceDirection.rotY = 0; //eventData.beta;
     $('#dir').text("Direction: " + eventData.alpha);
 }

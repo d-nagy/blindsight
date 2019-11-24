@@ -1,6 +1,7 @@
 "use strict";
 const express = require('express');
 const vis = require("./objRecognition.js");
+const tAnalys = require("./textAnalysis.js");
 
 var objects = [];
 
@@ -27,11 +28,21 @@ async function addObj(imageBuffer, rot){
 	});
 }
 
+function getStuff(stuff){
+	var out = [];
+	objects.forEach(o => {
+		if (o.name == stuff){
+			out.push(o.name);
+		};
+	});
+	return out;
+}
+
 function voiceOption(text, rot){
 	var command = tAnalys.makeComm(text);
-	console.log(tAnalys.commands);
+    console.log(tAnalys.commands);
+    var stuff = getStuff(command.name);
 	switch(command.com){
-		var stuff = getStuff;
 		case "is":
 			if (stuff.length != 0){
 				var result = `There are ${command.obj} here`;
@@ -63,7 +74,7 @@ function voiceOption(text, rot){
 				});
 			};
 			break;
-		
+
 	}
 	return result;
 }
@@ -84,7 +95,9 @@ async function person(imageBuffer){
 
 
 exports.objAdd =  async function(req, res) {
-    await voiceOption(req.file.buffer, req.body.rot);
+    console.log("objAdd hit");
+    await addObj(req.file.buffer, req.body.rot);
+    res.send('Object added.');
 };
 
 exports.objOut =  async function(req, res) {
