@@ -91,7 +91,7 @@ if (hasGetUserMedia()) {
 
                     utterance.voice = voice;
                     utterance.pitch = 1.0;
-                    utterance.rate = 0.6;
+                    utterance.rate = 1.5;
                     synth.speak(utterance);
                 });
                 repeatSend();
@@ -106,7 +106,6 @@ if (hasGetUserMedia()) {
         canvas.getContext('2d').drawImage(video, 0, 0);
         // Other browswers will fall back to image/png
         frame = canvas.toDataURL('image/webp');
-        img.src = frame;
         dir = window.deviceDirection;
 
         console.log(Object.keys(dir));
