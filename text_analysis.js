@@ -47,5 +47,7 @@ function makecomm(strin){
 	return [com, obj];
 }
 
-var out = makecomm("where are the doors");
-console.log(out);
+module.exports.makecomm = makecomm;
+
+//var out = makecomm("where are the doors");
+//console.log(out);

@@ -19,9 +19,8 @@ async function quickstart() {
 }
 
 function get_angle(x, y, rotX, rotY){
-	const pi = 3.14159;
-	const angWidth = pi*60/180;
-	const angHeight = pi*60/180;
+	const angWidth = 60;
+	const angHeight = 60;
 	const xSize = 640;
 	const ySize = 480;
 
@@ -64,25 +63,27 @@ async function object(fileName, rot) {
 
 async function feelings(fileName){
 	//const client = new vision.ImageAnnotatorClient();
-
+	const probs = {"VERY_UNLIKELY": 0, "UNLIKELY": 25, "POSSIBLE": 50, "LIKLEY": 75, "VERY_LIKLEY": 100}
 	const [result] = await client.faceDetection(fileName);
 	const faces = result.faceAnnotations;
-	console.log(faces);
+	//console.log(faces);
 	face = faces[0];
-	var maxfeeling = faces.joyLikelihood;
+	var maxfeeling = probs[face.joyLikelihood];
+	//console.log(face.joyLikelihood);
 	var feel = "joy";
-	if (face.angerLikelihood > maxfeeling){
-		maxfeeling = face.angerLikelihood;
+	if (probs[face.joyLikelihood] > maxfeeling){
+		maxfeeling = probs[face.joyLikelihood];
 		feel = "anger";
 	};
-	if (face.sorrowLikelihood > maxfeeling){
-		maxfeeling = face.sorrowLikelihood;
+	if (probs[face.joyLikelihood] > maxfeeling){
+		maxfeeling = probs[face.joyLikelihood];
 		feel = "sorrow";
 	};
-	if (face.supriseLikelihood > maxfeeling){
-		maxfeeling = face.supriseLikelihood;
+	if (probs[face.joyLikelihood] > maxfeeling){
+		maxfeeling = probs[face.joyLikelihood];
 		feel = "suprise";
 	};
+	/*
 	faces.forEach((face, i) => {
   		console.log(`  Face #${i + 1}:`);
   		console.log(`    Joy: ${face.joyLikelihood}`);
@@ -90,6 +91,7 @@ async function feelings(fileName){
   		console.log(`    Sorrow: ${face.sorrowLikelihood}`);
   		console.log(`    Surprise: ${face.surpriseLikelihood}`);
 	});
+	*/
 	var out = {feeling: feel, confidence: maxfeeling};
 	return out;
 }
@@ -100,7 +102,10 @@ async function output(){
 	console.log(obj);
 }
 
-output();
+//output();
+
+module.exports.object = object;
+module.exports.feelings = feelings;
 
 /*
 obj.forEach(obj => {
