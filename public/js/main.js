@@ -1,6 +1,14 @@
+window.deviceDirection = 0;
+
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices &&
         navigator.mediaDevices.getUserMedia);
+}
+
+if ('DeviceOrientationEvent' in window) {
+    window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+} else {
+    console.log('Device Orientation API not supported.');
 }
 
 if (hasGetUserMedia()) {
@@ -25,10 +33,12 @@ if (hasGetUserMedia()) {
         // Other browswers will fall back to image/png
         frame = canvas.toDataURL('image/webp');
         img.src = frame;
+        dir = window.deviceDirection;
 
         canvas.toBlob(function(blob) {
             let fd = new FormData();
             fd.append('image', blob);
+            fd.append('dir', dir);
             $.ajax({
                 type: "POST",
                 url: "/process/",
@@ -43,4 +53,8 @@ if (hasGetUserMedia()) {
 
 } else {
     alert('getUserMedia() is not supported by your browser');
+}
+
+function deviceOrientationHandler(eventData) {
+    window.deviceDirection = eventData.alpha;
 }

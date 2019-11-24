@@ -8,7 +8,6 @@ async function detectLabels(imageBuffer) {
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
     // Performs label detection on the image file
-    console.log(imageBuffer);
     const [labelsResult] = await client.labelDetection(imageBuffer);
     const labels = labelsResult.labelAnnotations;
     console.log('Labels:');
@@ -51,6 +50,8 @@ exports.process =  function(req, res) {
     console.log('Output!');
 
     detectLabels(req.file.buffer);
+
+    console.log(req.body);
 
     res.send('output');
 };
