@@ -1,7 +1,7 @@
 //const stot = require("./speech_text.js");
 
-const commands = ["in", "where", "what", "feeling", "thinking"];
-const objects = ["person", "door", "table", "exit", "window"];
+const commands = ["is", "in", "where", "what"];
+const objects = ["person", "door", "table", "window", "television"];
 
 function segment(strin){
 	var words = [];
@@ -28,12 +28,14 @@ function isin(array, element){
 }
 
 function makeComm(strin){
-	var segs = segment(strin);
+	var segs = segment(strin.toLowerCase());
 	var command = "";
 	var object = "";
+	var c = true;
 	for (var i=0; i<segs.length; i++){
-		if (isin(commands, segs[i])){
+		if (isin(commands, segs[i]) && c){
 			command = segs[i];
+			c = false;
 		} else if (isin(objects, segs[i])){
 			object = segs[i];
 		};

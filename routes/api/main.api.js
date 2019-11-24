@@ -30,39 +30,20 @@ async function addObj(imageBuffer, rot){
 
 function getStuff(stuff){
 	var out = [];
+	console.log(out);
 	objects.forEach(o => {
 		if (o.name == stuff){
-			out.push(o.name);
+			out.push(o);
 		};
 	});
 	return out;
 }
 
 function voiceOption(text, rot){
-	var command = tAnalys.makeComm(text);
+	var command = tAnalys.makeComm(text.toLowerCase());
     console.log(objects);
-    console.log(command.obj);
+    console.log(command.com);
 	switch(command.com){
-		case "is":
-			var stuff = getStuff(command.obj);
-			if (stuff.length != 0){
-				var result = `There are ${command.obj}] here`;
-			};
-			break;
-		case "where":
-			var stuff = getStuff(command.obj);
-			if (stuff.length == 0){
-				var result = `There are no ${command.obj} here`;
-			} else{
-				var result = `There is a `;
-				var pos = [];
-				stuff.forEach(s => {
-					var rotX = rot.x - stuff.rotX;
-					//var rotY = rot.y - stuff.rotY;
-					result += `${s.name} at ${rotX} degrees`;
-				});
-			};
-			break;
 		case "all":
 		case "what":
 			if (objects.length == 0){
@@ -71,12 +52,49 @@ function voiceOption(text, rot){
 				var result = `I can see the following: `;
 				var pos = [];
 				objects.forEach(s => {
-					var rotX = rot.x - objects.rotX;
+					//var rotX = rot.x - objects.rotX;
 					//var rotY = rot.y - stuff.rotY;
 					result += `${s.name} `;
 				});
 			};
 			break;
+		case "is":
+			var stuff = getStuff(command.obj);
+			if (command.obj != "all"){
+					if (stuff.length != 0){
+						var result = `There are ${command.obj}s here`;
+					} else{
+						var result = `There are no ${command.obj}s here`;
+					};
+				} else {
+					var result = "I didnt quite catch that";
+				};
+			break;
+		case "where":
+			var stuff = getStuff(command.obj);
+			if (command.obj != "all"){
+				if (stuff.length == 0){
+					var result = `There are no ${command.obj}s here`;
+				} else{
+					var result = `There is a `;
+					console.log(stuff);
+					var pos = [];
+					stuff.forEach(s => {
+						var rotX = rot.rotX - s.rotX; 
+					//var rotY = rot.y - stuff.rotY;
+						if (rotX < 0){
+							result += `${s.name} at ${-1*Math.round(rotX)} degrees to the right`;
+						} else {
+							result += `${s.name} at ${Math.round(rotX)} degrees to the left`;
+						};
+					});
+				};
+			} else {
+				var result = "I didnt quite catch that";
+			};
+			break;
+		default:
+			var result = "I didnt quite catch that";
 	}
 	console.log(result);
 	return result;
@@ -105,7 +123,7 @@ exports.objAdd =  async function(req, res) {
 };
 
 exports.objOut =  async function(req, res) {
-	console.log('Post response: ' + Object.keys(req.body));
+	console.log('Post response: ' + Object.keys(req.body.rot));
     let responseText = await voiceOption(req.body.text, req.body.rot);
     res.send(responseText);
 };

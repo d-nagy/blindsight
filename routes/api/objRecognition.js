@@ -1,15 +1,15 @@
 const vision = require('@google-cloud/vision');
 
 const client = new vision.ImageAnnotatorClient();
+const xSize = 640;
+const ySize = 480;
 
 function getAngle(x, y, rotX, rotY){
 	const angWidth = 60;
 	const angHeight = 60;
-	const xSize = 640;
-	const ySize = 480;
 
 	angFromTop = angHeight * y/ySize;
-	angFromLeft = angWidth * x/ySize;
+	angFromLeft = angWidth * x/xSize;
 	angY = angFromTop + angHeight/2 + rotY;
 	angX = angFromLeft + angWidth/2 + rotX;
 	return	{angX, angY};
@@ -26,13 +26,13 @@ async function findObjects(imageBuffer, rot) {
 		const vertices = object.boundingPoly.normalizedVertices;
 		var centreVert = [0, 0];
   		vertices.forEach(v => {
-  			centreVert[0] += v.x;
-  			centreVert[1] += v.y;
+  			centreVert[0] += v.x*xSize;
+  			centreVert[1] += v.y*ySize;
   		});
   		centreVert[0] = centreVert[0]/4;
   		centreVert[1] = centreVert[1]/4;
 		const angle = getAngle(centreVert[0], centreVert[1], rot.rotX, rot.rotY);
-        out.push({rotX: angle.angX, rotY: angle.angY, name: object.name});
+        out.push({rotX: angle.angX, rotY: angle.angY, name: object.name.toLowerCase()});
         //console.log('rotX: ' + angle.angX);
         //console.log('rotY: ' + angle.angY);
         //console.log('name: ' + object.name);
