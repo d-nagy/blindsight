@@ -12,6 +12,9 @@ if ('DeviceOrientationEvent' in window) {
 }
 
 if (hasGetUserMedia()) {
+    let mouseTimer;
+    let sendInterval;
+
     // We're good to go!
     const vgaConstraints = {
         video: {
@@ -30,7 +33,8 @@ if (hasGetUserMedia()) {
     navigator.mediaDevices.getUserMedia(vgaConstraints).
         then((stream) => {video.srcObject = stream});
 
-    video.onclick = function() {
+    let sendData = function() {
+        console.log('Sending data');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
@@ -56,6 +60,24 @@ if (hasGetUserMedia()) {
         }, 'image/webp');
     };
 
+    let repeatSend = function() {
+        sendData();
+        sendInterval = setInterval(sendData, 3000);
+    }
+
+    let mouseDown = function() {
+        mouseUp();
+        mouseTimer = window.setTimeout(sendData, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
+    }
+
+    let mouseUp = function() {
+        if (mouseTimer) window.clearTimeout(mouseTimer);  //cancel timer when mouse button is released
+        if (sendInterval) clearInterval(sendInterval);
+    }
+
+    document.body.onmousedown = mouseDown;
+    document.body.onmouseup = mouseUp;
+    document.body.ondblclick = repeatSend;
 } else {
     alert('getUserMedia() is not supported by your browser');
 }
