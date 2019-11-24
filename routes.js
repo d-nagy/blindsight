@@ -10,5 +10,7 @@ module.exports = function(app) {
 
     app.get('/', index.index);
 
-    app.post('/process', upload.single('image'), api.process);
+    app.post('/feelings', upload.single('image'), api.feelings);
+    app.post('/objOut', api.objOut);
+    app.post('/objAdd', upload.single('image'), api.objAdd);
 };
