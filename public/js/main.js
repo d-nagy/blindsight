@@ -130,10 +130,23 @@ if (hasGetUserMedia()) {
 
     let askObject = function(text) {
         dir = window.deviceDirection;
+        console.log(text.toLowerCase());
         $.ajax({
                 type: "POST",
                 url: "/objOut",
                 data: {"text": text.toLowerCase(), "rot": dir},
+            }).done(function(response) {
+                console.log(response);
+                let responses = response.split('|');
+                responses.forEach((res, i) => {
+                    let utterance = new SpeechSynthesisUtterance(res);
+                    let voice = synth.getVoices().find(v => v.lang == 'en-AU');
+
+                    utterance.voice = voice;
+                    utterance.pitch = 1.0;
+                    utterance.rate = 0.6;
+                    synth.speak(utterance);
+                });
             });
     }
 

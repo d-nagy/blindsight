@@ -40,15 +40,17 @@ function getStuff(stuff){
 
 function voiceOption(text, rot){
 	var command = tAnalys.makeComm(text);
-    console.log(tAnalys.commands);
-    var stuff = getStuff(command.name);
+    console.log(objects);
+    console.log(command.obj);
 	switch(command.com){
 		case "is":
+			var stuff = getStuff(command.obj);
 			if (stuff.length != 0){
-				var result = `There are ${command.obj} here`;
+				var result = `There are ${command.obj}] here`;
 			};
 			break;
 		case "where":
+			var stuff = getStuff(command.obj);
 			if (stuff.length == 0){
 				var result = `There are no ${command.obj} here`;
 			} else{
@@ -61,21 +63,22 @@ function voiceOption(text, rot){
 				});
 			};
 			break;
+		case "all":
 		case "what":
-			if (stuff.length == 0){
-				var result = `There are no ${command.obj} here`;
+			if (objects.length == 0){
+				var result = `There are no objects here`;
 			} else{
-				var result = `There is a `;
+				var result = `I can see the following: `;
 				var pos = [];
-				stuff.forEach(s => {
-					var rotX = rot.x - stuff.rotX;
+				objects.forEach(s => {
+					var rotX = rot.x - objects.rotX;
 					//var rotY = rot.y - stuff.rotY;
-					result += `${s.name}, and a`;
+					result += `${s.name} `;
 				});
 			};
 			break;
-
 	}
+	console.log(result);
 	return result;
 }
 
@@ -102,8 +105,8 @@ exports.objAdd =  async function(req, res) {
 };
 
 exports.objOut =  async function(req, res) {
+	console.log('Post response: ' + Object.keys(req.body));
     let responseText = await voiceOption(req.body.text, req.body.rot);
-    console.log('Post response: ' + responseText);
     res.send(responseText);
 };
 

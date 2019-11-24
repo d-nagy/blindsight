@@ -35,7 +35,7 @@ function makeComm(strin){
 		if (isin(commands, segs[i])){
 			command = segs[i];
 		} else if (isin(objects, segs[i])){
-			object = sege[i];
+			object = segs[i];
 		};
 	};
 	if (command.length == 0){
