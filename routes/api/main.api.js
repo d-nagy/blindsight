@@ -83,12 +83,12 @@ function voiceOption(text, rot){
 }
 
 async function person(imageBuffer){
-	var options = {"joy": "happy", "sorrow": "sad", "anger": "angry", "surprise": "suprised"};
+	var options = {"joy": "happy", "sorrow": "sad", "anger": "angry", "surprise": "suprised", "neutral": "neutral"};
     var feels = await vis.feelings(imageBuffer);
 
     let texts = [];
     feels.forEach((feel, i) => {
-        texts.push(`Person ${i+1} is ${feel.confidence} percent ${options[feel.feeling]}`);
+        texts.push(`Person ${i+1} is ${feel.confidence} percent likely to be ${options[feel.feeling]}`);
     });
 
     let text = texts.join('|');
