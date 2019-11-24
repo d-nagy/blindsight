@@ -1,4 +1,4 @@
-window.deviceDirection = 0;
+window.deviceDirection = {"rotX": 0, "rotY": 0};
 
 let synth = window.speechSynthesis;
 
@@ -13,6 +13,8 @@ recognition.grammars = speechRecognitionList;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
+
+recognition.start();
 
 // document.body.onclick = function() {
 //   recognition.start();
@@ -62,7 +64,40 @@ if (hasGetUserMedia()) {
     navigator.mediaDevices.getUserMedia(vgaConstraints).
         then((stream) => {video.srcObject = stream});
 
-    let sendData = function(url, callback) {
+    let getFeelings = function() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        // Other browswers will fall back to image/png
+        frame = canvas.toDataURL('image/webp');
+        img.src = frame;
+
+        canvas.toBlob(function(blob) {
+            let fd = new FormData();
+            fd.append('image', blob);
+            $.ajax({
+                type: "POST",
+                url: "/feelings",
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function(response) {
+                console.log(response);
+                let responses = response.split('|');
+                responses.forEach((res, i) => {
+                    let utterance = new SpeechSynthesisUtterance(res);
+                    let voice = synth.getVoices().find(v => v.lang == 'en-AU');
+
+                    utterance.voice = voice;
+                    utterance.pitch = 1.0;
+                    utterance.rate = 0.6;
+                    synth.speak(utterance);
+                });
+            });
+        }, 'image/webp');
+    };
+
+    let sendData = function() {
         console.log('Sending data');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -71,7 +106,6 @@ if (hasGetUserMedia()) {
         frame = canvas.toDataURL('image/webp');
         img.src = frame;
         dir = window.deviceDirection;
-        $('#dir').text("Direction: " + dir);
 
         canvas.toBlob(function(blob) {
             let fd = new FormData();
@@ -79,45 +113,45 @@ if (hasGetUserMedia()) {
             fd.append('dir', dir);
             $.ajax({
                 type: "POST",
-                url: "/" + url,
+                url: "/addObj",
                 data: fd,
                 processData: false,
                 contentType: false
             }).done(function(response) {
-                if (callback) callback(response);
+                console.log(response);
             });
         }, 'image/webp');
     };
+
+    let askObject = function(text) {
+        dir = window.deviceDirection;
+        $.ajax({
+                type: "POST",
+                url: "/objOut",
+                data: {"text": text, "rot": dir},
+            });
+    }
 
     let repeatSend = function() {
         sendData();
         sendInterval = setInterval(sendData, 3000);
     }
 
-    let detectFaces = function() {
-        sendData('feelings', function(response) {
-            console.log(response);
-            let responses = response.split('|');
-            responses.forEach((res, i) => {
-                let utterance = new SpeechSynthesisUtterance(res);
-                let voice = synth.getVoices().find(v => v.lang == 'en-GB');
-
-                utterance.voice = voice;
-                utterance.pitch = 1.0;
-                utterance.rate = 0.6;
-                synth.speak(utterance);
-            });
-        });
-    }
-
     let mouseDown = function() {
         mouseUp();
-        mouseTimer = window.setTimeout(detectFaces, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
+        mouseTimer = window.setTimeout(getFeelings, 1500); //set timeout to fire in 1.5 seconds when the user presses mouse button down
     }
 
     let mouseUp = function() {
         if (mouseTimer) window.clearTimeout(mouseTimer);  //cancel timer when mouse button is released
         if (sendInterval) clearInterval(sendInterval);
+    }
+
+    recognition.onresult = function(event) {
+      var last = event.results.length - 1;
+      var word = event.results[last][0].transcript;
+      console.log(word);
+      askObject(word);
     }
 
     document.body.onmousedown = mouseDown;
@@ -128,6 +162,7 @@ if (hasGetUserMedia()) {
 }
 
 function deviceOrientationHandler(eventData) {
-    window.deviceDirection = eventData.alpha;
+    window.deviceDirection.rotx = eventData.alpha;
+    window.deviceDirection.roty = eventData.beta;
     $('#dir').text("Direction: " + eventData.alpha);
 }

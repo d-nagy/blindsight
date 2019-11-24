@@ -27,6 +27,47 @@ async function addObj(imageBuffer, rot){
 	});
 }
 
+function voiceOption(text, rot){
+	var command = tAnalys.makeComm(text);
+	console.log(tAnalys.commands);
+	switch(command.com){
+		var stuff = getStuff;
+		case "is":
+			if (stuff.length != 0){
+				var result = `There are ${command.obj} here`;
+			};
+			break;
+		case "where":
+			if (stuff.length == 0){
+				var result = `There are no ${command.obj} here`;
+			} else{
+				var result = `There is a `;
+				var pos = [];
+				stuff.forEach(s => {
+					var rotX = rot.x - stuff.rotX;
+					//var rotY = rot.y - stuff.rotY;
+					result += `${s.name} at ${rotX} degrees`;
+				});
+			};
+			break;
+		case "what":
+			if (stuff.length == 0){
+				var result = `There are no ${command.obj} here`;
+			} else{
+				var result = `There is a `;
+				var pos = [];
+				stuff.forEach(s => {
+					var rotX = rot.x - stuff.rotX;
+					//var rotY = rot.y - stuff.rotY;
+					result += `${s.name}, and a`;
+				});
+			};
+			break;
+		
+	}
+	return result;
+}
+
 async function person(imageBuffer){
 	var options = {"joy": "happy", "sorrow": "sad", "anger": "angry", "surprise": "suprised"};
     var feels = await vis.feelings(imageBuffer);
@@ -41,6 +82,16 @@ async function person(imageBuffer){
 	return text;
 }
 
+
+exports.objAdd =  async function(req, res) {
+    await voiceOption(req.file.buffer, req.body.rot);
+};
+
+exports.objOut =  async function(req, res) {
+    let responseText = await voiceOption(req.body.text, req.body.rot);
+    console.log('Post response: ' + responseText);
+    res.send(responseText);
+};
 
 //sending the image with post
 exports.feelings =  async function(req, res) {
