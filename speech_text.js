@@ -33,7 +33,7 @@ async function main() {
   const transcription = response.results
     .map(result => result.alternatives[0].transcript)
     .join('\n');
-  console.log(response)
+  console.log(response);
   console.log(`Transcription: ${transcription}`);
 }
 main().catch(console.error);
