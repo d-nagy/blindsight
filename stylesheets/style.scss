@@ -13,12 +13,32 @@ h1 {
     color: #fff;
 }
 
-canvas, video {
+canvas, video, img {
 
-    width: 100%;
-    height: 100%;
+    //width: 100%;
+    //height: 100%;
     
     background-color: #454545;
+}
+
+img {
+
+    object-fit: contain;
+}
+
+.display {
+
+    //display: flex;
+    //flex-direction: column;
+
+    //width: 100%;
+    //height: 100%;
+
+}
+
+.display > img {
+
+    //height: 480px;
 }
 
 .header {

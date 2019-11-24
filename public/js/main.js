@@ -176,5 +176,5 @@ if (hasGetUserMedia()) {
 function deviceOrientationHandler(eventData) {
     window.deviceDirection.rotX = 0; //eventData.alpha;
     window.deviceDirection.rotY = 0; //eventData.beta;
-    $('#dir').text("Direction: " + eventData.alpha);
+    // $('#dir').text("Direction: " + eventData.alpha);
 }
